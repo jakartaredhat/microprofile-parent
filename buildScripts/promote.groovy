@@ -1,7 +1,6 @@
 import modules
 
 def moduleString = modules.getModules().join('\n')
-def ant = new groovy.ant.AntBuilder()
 pipeline {
     agent any
     tools {
@@ -17,7 +16,7 @@ pipeline {
         stage("Copy Dependencies") {
             steps {
                 sh "ls -la ${pwd()}"
-                script {
+                withAnt(installation: 'LocalAnt') {
                     sh "ls -l; cp buildScripts/pom-template.xml buildScripts/pom.xml"
                     ant.replace(file: "buildScripts/pom.xml", token: '${stagingID}', value: "${stagingID}")
                 }
