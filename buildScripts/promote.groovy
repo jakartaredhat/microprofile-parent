@@ -13,9 +13,14 @@ pipeline {
     }
 
     stages {
+        stage("Checkout MicroProfile-Parent") {
+            steps {
+                git credentialsId: 'github-bot-ssh', url: "git@github.com:eclipse/microprofile-parent.git", branch: "master"
+                sh "ls -la ${pwd()}"
+            }
+        }
         stage("Copy Dependencies") {
             steps {
-                sh "ls -la ${pwd()}"
                 withAnt(installation: 'LocalAnt') {
                     sh "ls -l; cp buildScripts/pom-template.xml buildScripts/pom.xml"
                     ant.replace(file: "buildScripts/pom.xml", token: '${stagingID}', value: "${stagingID}")
