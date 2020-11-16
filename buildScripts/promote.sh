@@ -8,7 +8,7 @@ PATH="${MVN_HOME}/bin:${JAVA_HOME}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:
 
 # Maven plugins
 NEXUS_PLUGIN='org.sonatype.plugins:nexus-staging-maven-plugin:1.6.7'
-NEXUS_PLUGIN_PARAMS='-DnexusUrl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ -DserverId=ossrh'
+NEXUS_PLUGIN_PARAMS='-DnexusUrl=https://oss.sonatype.org -DserverId=ossrh'
 
 mvnq() {
     # filter out progress reports (-B) and download details
