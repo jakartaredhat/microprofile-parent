@@ -1,28 +1,32 @@
 # Script to close a staged repository
 
+## Parameters
+# MODULE
+# STAGING_ID
+# DRY_RUN
+# LIST_REPOS
+
 TOOLS_PREFIX='/opt/tools'
 JAVA_PREFIX="${TOOLS_PREFIX}/java/oracle"
 MVN_HOME="${TOOLS_PREFIX}/apache-maven/latest"
 JAVA_HOME="${JAVA_PREFIX}/jdk-8/latest"
 PATH="${MVN_HOME}/bin:${JAVA_HOME}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
-# Maven plugins
+# Nexus maven plugins
 NEXUS_PLUGIN='org.sonatype.plugins:nexus-staging-maven-plugin:1.6.7'
 NEXUS_PLUGIN_PARAMS='-DnexusUrl=https://oss.sonatype.org -DserverId=ossrh'
 
-mvnq() {
-    # filter out progress reports (-B) and download details
-    mvn -B "$@" | grep -v '^\[INFO\] Download'
-}
+# First update the pom-template.xml to a pom
+mvn -Dmodule=${MODULE} -DstagingID=${STAGING_ID} -Dstaged.version=${VERSION} post-clean
 
-# List
+# Optionally list the staging repositories
 if [[ ${LIST_REPOS} = "true" ]]; then
   echo '-[ List turned on ]----------------------------------------------------------'
-  mvnq ${NEXUS_PLUGIN_PARAMS} ${NEXUS_PLUGIN}:rc-list
+  mvn ${NEXUS_PLUGIN_PARAMS} ${NEXUS_PLUGIN}:rc-list
 fi
 
-# Release
+# If not DRY_RUN, close the given staging repository
 if [[ ${DRY_RUN} != "true" ]]; then
   echo "Releasing repositoryID=$ID"
-  mvnq -DstagingRepositoryId="$ID" ${NEXUS_PLUGIN_PARAMS} ${NEXUS_PLUGIN}:rc-release
+  mvn -DstagingRepositoryId="$ID" ${NEXUS_PLUGIN_PARAMS} ${NEXUS_PLUGIN}:rc-release
 fi

@@ -4,41 +4,37 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.example</groupId>
+  <groupId>org.microprofile</groupId>
   <artifactId>staging</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <properties>
-    <staged.version>2.0-RC12</staged.version>
-    <stagingID>orgeclipsemicroprofile-1361</stagingID>
+    <module>module</module>
+    <staged.version>x.y</staged.version>
+    <stagingID>orgeclipsemicroprofile-nnn</stagingID>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>org.eclipse.microprofile.config</groupId>
-      <artifactId>microprofile-config-api</artifactId>
+      <groupId>org.eclipse.microprofile.${module}</groupId>
+      <artifactId>microprofile-${module}-api</artifactId>
       <version>${staged.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.microprofile.config</groupId>
-      <artifactId>microprofile-config-build-tools</artifactId>
-      <version>${staged.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.microprofile.config</groupId>
-      <artifactId>microprofile-config-spec</artifactId>
+      <groupId>org.eclipse.microprofile.${module}</groupId>
+      <artifactId>microprofile-${module}-spec</artifactId>
       <type>html</type>
       <version>${staged.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.microprofile.config</groupId>
-      <artifactId>microprofile-config-spec</artifactId>
+      <groupId>org.eclipse.microprofile.${module}</groupId>
+      <artifactId>microprofile-${module}-spec</artifactId>
       <type>pdf</type>
       <version>${staged.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.microprofile.config</groupId>
-      <artifactId>microprofile-config-tck</artifactId>
+      <groupId>org.eclipse.microprofile.${module}</groupId>
+      <artifactId>microprofile-${module}-tck</artifactId>
       <version>${staged.version}</version>
     </dependency>
   </dependencies>
