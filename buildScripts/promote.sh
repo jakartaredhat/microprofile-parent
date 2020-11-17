@@ -21,9 +21,14 @@ MODULE=${MODULE#microprofile-}
 echo MODULE="${MODULE}"
 echo STAGING_ID="${STAGING_ID}"
 echo VERSION="${VERSION}"
+echo LIST_REPOS="${LIST_REPOS}"
+echo DRY_RUN="${DRY_RUN}"
 
 # First update the pom-template.xml to a pom
-mvn -f buildScripts/pom-template.xml -Dmodule=${MODULE} -DstagingID=${STAGING_ID} -Dstaged.version=${VERSION} post-clean
+CMD='mvn -f buildScripts/pom-template.xml -Dmodule=${MODULE} -DstagingID=${STAGING_ID} -Dstaged.version=${VERSION} post-clean'
+echo $CMD
+$CMD
+
 ls -l buildScripts
 
 # Optionally list the staging repositories
@@ -35,5 +40,5 @@ fi
 # If not DRY_RUN, close the given staging repository
 if [[ ${DRY_RUN} != "true" ]]; then
   echo "Releasing repositoryID=$ID"
-  mvn -DstagingRepositoryId="$ID" ${NEXUS_PLUGIN_PARAMS} ${NEXUS_PLUGIN}:rc-release
+  echo mvn -DstagingRepositoryId="$ID" ${NEXUS_PLUGIN_PARAMS} ${NEXUS_PLUGIN}:rc-release
 fi
