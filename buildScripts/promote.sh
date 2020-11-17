@@ -23,7 +23,8 @@ echo STAGING_ID="${STAGING_ID}"
 echo VERSION="${VERSION}"
 
 # First update the pom-template.xml to a pom
-mvn -Dmodule=${MODULE} -DstagingID=${STAGING_ID} -Dstaged.version=${VERSION} post-clean
+mvn -f buildScripts/pom-template.xml -Dmodule=${MODULE} -DstagingID=${STAGING_ID} -Dstaged.version=${VERSION} post-clean
+ls -l buildScripts
 
 # Optionally list the staging repositories
 if [[ ${LIST_REPOS} = "true" ]]; then
