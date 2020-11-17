@@ -16,6 +16,9 @@ PATH="${MVN_HOME}/bin:${JAVA_HOME}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:
 NEXUS_PLUGIN='org.sonatype.plugins:nexus-staging-maven-plugin:1.6.7'
 NEXUS_PLUGIN_PARAMS='-DnexusUrl=https://oss.sonatype.org -DserverId=ossrh'
 
+# Strip the microprofile- prefix from the module
+MODULE=${MODULE#microprofile-}
+
 # First update the pom-template.xml to a pom
 mvn -Dmodule=${MODULE} -DstagingID=${STAGING_ID} -Dstaged.version=${VERSION} post-clean
 
