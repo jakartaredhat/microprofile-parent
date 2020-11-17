@@ -18,6 +18,9 @@ NEXUS_PLUGIN_PARAMS='-DnexusUrl=https://oss.sonatype.org -DserverId=ossrh'
 
 # Strip the microprofile- prefix from the module
 MODULE=${MODULE#microprofile-}
+echo MODULE="${MODULE}"
+echo STAGING_ID="${STAGING_ID}"
+echo VERSION="${VERSION}"
 
 # First update the pom-template.xml to a pom
 mvn -Dmodule=${MODULE} -DstagingID=${STAGING_ID} -Dstaged.version=${VERSION} post-clean
